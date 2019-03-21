@@ -1,13 +1,16 @@
 package fr.pizzeria.console;
 
 import java.util.Scanner;
-
 import fr.pizzeria.Dao.PizzaMemDao;
+import fr.pizzeria.exception.DeletePizzaException;
+import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 import fr.pizzeria.service.AjouterPizzaService;
 import fr.pizzeria.service.ListerPizzasService;
 import fr.pizzeria.service.ModifierPizzaService;
 import fr.pizzeria.service.SupprimerPizzaService;
+import utils.NumberUtils;
 
 public class PizzeriaAdminConsoleApp{
 	/**
@@ -27,7 +30,7 @@ public class PizzeriaAdminConsoleApp{
 		System.out.println("***********************************");
 		System.out.println("***   Pizzeria Administration   ***");
 		System.out.println("***********************************");
-		System.out.println("*  1. Lister les pizzas           *");
+		System.out.println("*  1. Lister les pizze            *");
 		System.out.println("*  2. Ajouter une nouvelle pizza  *");
 		System.out.println("*  3. Mettre à jour une pizza     *");
 		System.out.println("*  4. Supprimer une pizza         *");
@@ -36,20 +39,39 @@ public class PizzeriaAdminConsoleApp{
 		System.out.print(">>>");
 					
 		Scanner user = new Scanner(System.in);
-		choix = user.nextInt();
-		
-		
+		String choixStr=user.nextLine();
+		if(choixStr.matches("[0-9]")){
+			choix=Integer.parseInt(choixStr);
+		}
+		else {
+			choix=0;	
+		}		
 			if(choix==1){
 				listePizzeService.executeUC(user);
 			}
 			else if(choix==2){
-				ajoutePizzaService.executeUC(user);
+				try {
+					ajoutePizzaService.executeUC(user);
+				} catch (SavePizzaException e) {
+					// TODO Auto-generated catch block
+					System.err.println(e.getMessage());
+				}
 			}
 			else if(choix==3){
-				modifiePizzaService.executeUC(user);
+				try {
+					modifiePizzaService.executeUC(user);
+				} catch (UpdatePizzaException e) {
+					// TODO Auto-generated catch block
+					System.err.println(e.getMessage());
+				}
 			}
 			else if(choix==4){
-				supprimePizzaService.executeUC(user);
+				try {
+					supprimePizzaService.executeUC(user);
+				} catch (DeletePizzaException e) {
+					// TODO Auto-generated catch block
+					System.err.println(e.getMessage());
+				}
 				
 				
 				
@@ -69,5 +91,4 @@ public class PizzeriaAdminConsoleApp{
 		System.out.println(pizza.getCode()+" -> "+pizza.getLibelle()+" ("+pizza.getPrix()+"€)");
 		
 	}
-
 }
