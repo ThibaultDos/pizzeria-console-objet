@@ -5,13 +5,19 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.pizzeria.exception.PizzaException;
 import fr.pizzeria.model.Pizza;
 
 public class PizzaMemJbdc implements IPizzaDao {	
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(PizzaMemJbdc.class);
 	
 	@Override
 	public Pizza[] findAllPizzas() {
@@ -44,9 +50,11 @@ public class PizzaMemJbdc implements IPizzaDao {
 			
 			
 			} catch (ClassNotFoundException e) {
+				LOGGER.error("Holà, my name is Error --> Le driver n'a pas été chargé", e);
 				throw new PizzaException("Pas de driver, pas de connexion.", e);
 				
 			} catch (SQLException e) {
+				LOGGER.error("Holà, my name is Error --> Pas de connection à la base de données", e);
 				throw new PizzaException("Pas de base de données, pas d'information.", e);
 				
 			} 
@@ -78,9 +86,11 @@ public class PizzaMemJbdc implements IPizzaDao {
 			uneConnexion.close();
 			
 		} catch (ClassNotFoundException e) {
+			LOGGER.error("Holà, my name is Error --> Le driver n'a pas été chargé", e);
 			throw new PizzaException("Pas de driver, pas de connexion.", e);
 				
 		} catch (SQLException e) {
+			LOGGER.error("Holà, my name is Error --> Pas de connection à la base de données", e);
 			throw new PizzaException("Pas de base de données, pas d'information.", e);
 			
 		} 		

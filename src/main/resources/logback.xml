@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- redirection des logs vers la sortir Console Standard -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- redirection vers un fichier -->
+	<appender name="INFO" class="ch.qos.logback.core.FileAppender">
+		<file>C:\Users\33689\Desktop\info.log</file>
+		<append>true</append>
+		<immediateFlush>true</immediateFlush>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE-EXCEPTION" class="ch.qos.logback.core.FileAppender">
+		<file>C:\Users\33689\Desktop\exception.log</file>
+		<append>true</append>
+		<immediateFlush>true</immediateFlush>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE-JPA" class="ch.qos.logback.core.FileAppender">
+		<file>C:\Users\33689\Desktop\app.log</file>
+		<append>true</append>
+		<immediateFlush>true</immediateFlush>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<!-- politique de log pour les classes du package dev.console -->
+	<logger name="fr.pizzeria" level="ERROR">
+		<appender-ref ref="FILE-EXCEPTION" />
+	</logger>
+
+	<logger name="org.hibernate" level="ERROR">
+		<appender-ref ref="FILE-JPA" />
+	</logger>
+
+
+	<!-- règle de logs par défaut. Ici : niveau INFO vers la sortie standard -->
+	<root level="INFO">
+		<appender-ref ref="INFO" />
+	</root>
+</configuration>
