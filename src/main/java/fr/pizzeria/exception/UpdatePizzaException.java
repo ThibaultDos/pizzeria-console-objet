@@ -15,7 +15,7 @@ public class UpdatePizzaException extends StockageException{
 	 */
 	public UpdatePizzaException() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 
@@ -26,7 +26,7 @@ public class UpdatePizzaException extends StockageException{
 	 */
 	public UpdatePizzaException(String arg0, Throwable arg1) {
 		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
+
 	}
 
 

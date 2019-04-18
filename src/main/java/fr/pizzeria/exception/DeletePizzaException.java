@@ -14,7 +14,7 @@ public class DeletePizzaException extends StockageException{
 	 */
 	public DeletePizzaException() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	

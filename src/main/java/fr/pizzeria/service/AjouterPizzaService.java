@@ -7,7 +7,8 @@ import fr.pizzeria.model.Pizza;
 
 public class AjouterPizzaService extends MenuService {
 	
-	private IPizzaDao dao;
+	private IPizzaDao dao;	
+	
 	
 	public AjouterPizzaService(IPizzaDao dao) {
 		this.dao = dao;
@@ -29,7 +30,7 @@ public class AjouterPizzaService extends MenuService {
 		}
 		System.out.print("Combien coûte cette pizza ?\n>>>");
 		String prixStr = scanner.nextLine();
-		Double prix= 0.0;
+		Double prix;
 		
 		
 		if (prixStr.matches("[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?")){
@@ -48,4 +49,14 @@ public class AjouterPizzaService extends MenuService {
 		Pizza pizza = new Pizza(code, libelle, prix);		
 		dao.saveNewPizza(pizza);	
 	}
+	
+	
+	
+
+	public AjouterPizzaService() {
+		super();
+	}
+	
+	
+	
 }

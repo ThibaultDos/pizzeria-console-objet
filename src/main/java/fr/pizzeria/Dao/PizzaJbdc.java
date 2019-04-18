@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.mysql.jdbc.Driver;
+
 import fr.pizzeria.model.Pizza;
 
 
@@ -19,7 +21,7 @@ public class PizzaJbdc implements IPizzaDao {
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
-		// DriverManager.registerDriver(new Driver());
+		DriverManager.registerDriver(new Driver());
 		// Etape 1 - Chargement du pilote
 		Class.forName("com.mysql.jdbc.Driver");
 		
@@ -27,67 +29,49 @@ public class PizzaJbdc implements IPizzaDao {
 		String jdbcUrl = "jdbc:mysql://localhost:3306/pizzeria_bdd";
 		
 		// Etape 3 - Création de la connexion
-		Connection uneConnexion = DriverManager.getConnection(jdbcUrl, "root", "");
-		
-		uneConnexion.prepareStatement("update pizza set categories=? where ID=? and description=?");
-		
-		Statement st = uneConnexion.createStatement();
-		
-		// Etape 4 - exécution  de la requête
-		ResultSet rs = st.executeQuery("select * from pizza");
-		
-		// Etape 5 - exploitation des résultats
-		while(rs.next()) {
+		try (Connection uneConnexion = DriverManager.getConnection(jdbcUrl, "root", "");
+				Statement st = uneConnexion.createStatement();
+				
+				//Etape 4 - exécution  de la requête
+				ResultSet rs = st.executeQuery("select * from pizza")){
 			
-			int id = rs.getInt("id");
-			String titre = rs.getString("code");
+			uneConnexion.prepareStatement("update pizza set categories=? where ID=? and description=?");
 			
-			System.out.println("id=" + id + " nom : " + titre);
+				
+				
+						// Etape 5 - exploitation des résultats
+						while(rs.next()) {
+							int id = rs.getInt("id");
+							String titre = rs.getString("code");	
+							System.out.println("id=" + id + " nom : " + titre);
+						}
+					}
 		}
-
-		// Etape 6 - Fermeture des ressources
-		rs.close();
-		
-		st.close();
-		
-		uneConnexion.close();
-
-	}
 
 	@Override
 	public Pizza[] findAllPizzas() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void saveNewPizza(Pizza pizza) {
-		// TODO Auto-generated method stub
-		
+	public void saveNewPizza(Pizza pizza) {		
 	}
 
 	@Override
 	public void updatePizza(String codePizza, Pizza pizza) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void deletePizza(String codePizza) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public Pizza findPizzaByCode(String codePizza) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean pizzaExists(String codePizza) {
-		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

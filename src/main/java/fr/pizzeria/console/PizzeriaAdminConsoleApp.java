@@ -19,7 +19,6 @@ import fr.pizzeria.service.SupprimerPizzaService;
 
 public class PizzeriaAdminConsoleApp {
 
-	// "fr.pizzeria.console.PizzeriaAdminConsoleApp"
 	private static final Logger LOGGER = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 
 	public void executer(String param) {
@@ -42,21 +41,10 @@ public class PizzeriaAdminConsoleApp {
 
 		int choix = 0;
 		while (choix != 99) {
-
-			System.out.println("***********************************");
-			System.out.println("***   Pizzeria Administration   ***");
-			System.out.println("***********************************");
-			System.out.println("*  1. Lister les pizze            *");
-			System.out.println("*  2. Ajouter une nouvelle pizza  *");
-			System.out.println("*  3. Mettre à jour une pizza     *");
-			System.out.println("*  4. Supprimer une pizza         *");
-			System.out.println("*  99. Sortir                     *");
-			System.out.println("***********************************");
-			System.out.print(">>>");
-
+			afficherMenu();
 			Scanner user = new Scanner(System.in);
 			String choixStr = user.nextLine();
-			if (choixStr.matches("[0-9]")) {
+			if (choixStr.matches("[0-9]+")) {
 				choix = Integer.parseInt(choixStr);
 			} else {
 				choix = 0;
@@ -70,24 +58,24 @@ public class PizzeriaAdminConsoleApp {
 					try {
 						ajoutePizzaService.executeUC(user);
 					} catch (SavePizzaException e) {
-						// TODO Auto-generated catch block
-						LOGGER.error("Holà, my name is Error --> SavePizzaException", e);
+
+						LOGGER.error("I AM ERROR --> SavePizzaException", e);
 						System.err.println(e.getMessage());
 					}
 				} else if (choix == 3) {
 					try {
 						modifiePizzaService.executeUC(user);
 					} catch (UpdatePizzaException e) {
-						// TODO Auto-generated catch block
-						LOGGER.error("Holà, my name is Error --> UpdatePizzaException", e);	
+
+						LOGGER.error("I AM ERROR --> UpdatePizzaException", e);	
 						System.err.println(e.getMessage());
 					}
 				} else if (choix == 4) {
 					try {
 						supprimePizzaService.executeUC(user);
 					} catch (DeletePizzaException e) {
-						// TODO Auto-generated catch block
-						LOGGER.error("Holà, my name is Error --> DeletePizzaException", e);	
+
+						LOGGER.error("I AM ERROR --> DeletePizzaException", e);	
 						System.err.println(e.getMessage());
 					}
 				} else if (choix == 99) {
@@ -100,7 +88,7 @@ public class PizzeriaAdminConsoleApp {
 				}
 
 			} catch (PizzaException e) {
-				LOGGER.error("Holà, my name is Error --> PizzaException", e);
+				LOGGER.error("I AM ERROR --> PizzaException", e);
 			}
 		}
 
@@ -108,5 +96,18 @@ public class PizzeriaAdminConsoleApp {
 
 	public static void afficheCarte(Pizza pizza) {
 		System.out.println(pizza.getCode() + " -> " + pizza.getLibelle() + " (" + pizza.getPrix() + "€)");
+	}
+	
+	public static void afficherMenu(){
+		System.out.println("***********************************");
+		System.out.println("***   Pizzeria Administration   ***");
+		System.out.println("***********************************");
+		System.out.println("*  1. Lister les pizze            *");
+		System.out.println("*  2. Ajouter une nouvelle pizza  *");
+		System.out.println("*  3. Mettre à jour une pizza     *");
+		System.out.println("*  4. Supprimer une pizza         *");
+		System.out.println("*  99. Sortir                     *");
+		System.out.println("***********************************");
+		System.out.print(">>> ");
 	}
 }

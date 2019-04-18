@@ -21,11 +21,14 @@ public class ListerPizzasService extends MenuService {
 			
 		Pizza[] carte = dao.findAllPizzas();
 			
-		for(int i = 0; i<carte.length;i++){
-			if (carte[i] != null){
-				System.out.println(carte[i].getCode()+" -> "+carte[i].getLibelle()+" ("+carte[i].getPrix()+"€)");
+		StringBuilder affichage = new StringBuilder();
+		for(Pizza pizza : carte){
+			if (pizza != null){
+				affichage.append(pizza.getCode()).append(" -> ").append(pizza.getLibelle()).append(" (").append(pizza.getPrix()).append("€)\n");
 			}
 		}
+		System.out.println(affichage);
+
 		
 	}
 		
